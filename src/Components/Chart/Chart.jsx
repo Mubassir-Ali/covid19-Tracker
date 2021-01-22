@@ -1,49 +1,63 @@
-import React, { useEffect, useState } from "react";
-import { fetchDailyData } from "../../api";
-import { Line, Bar } from "react-chartjs-2";
-import styles from "./Chart.module.css";
+import React, { useEffect, useState } from 'react';
+import { fetchDailyData } from '../../api';
+import { Line, Bar } from 'react-chartjs-2';
+import styles from './Chart.module.css';
 
-const Chart = () => {
-  const [dailyData, setDailyData] = useState([]);
-  useEffect(() => {
+const Chart = ({ data:{confirmed,recovered,deaths}, çountries }) => {
+	const [ dailyData, setDailyData ] = useState([]);
+	useEffect(() => {
+		const fetcAPI = async () => {
+			setDailyData(await fetchDailyData());
 
-    
-    const fetcAPI = async () => {
-      
-      setDailyData(await fetchDailyData());
+			console.log(dailyData.length);
+		};
 
-      console.log(dailyData.length);
-    };
+		fetcAPI();
+	}, []);
 
-    fetcAPI();
-  }, []);
+	const lineChart = dailyData.length ? (
+		<Line
+			data={{
+				labels: dailyData.map(({ date }) => new Date(date).toLocaleDateString()),
+				datasets: [
+					{
+						data: dailyData.map((data) => data.confirmed),
+						label: 'Infected',
+						borderColor: '#3333ff',
+						backgroundColor: 'rgba(0, 0, 255, 0.2)',
+						fill: true
+					},
+					{
+						data: dailyData.map((data) => data.deaths),
+						label: 'Deaths',
+						borderColor: 'red',
+						backgroundColor: 'rgba(255, 0, 0, 0.5)',
+						fill: true
+					}
+				]
+			}}
+		/>
+	) : null;
 
-  const lineChart = dailyData.length ? (
-    <Line
-      data={{
-        labels: dailyData.map(({ date }) => new Date(date).toLocaleDateString()),
-        datasets: [
-          {
-            data: dailyData.map((data) => data.confirmed),
-            label: 'Infected',
-            borderColor: '#3333ff',
-            backgroundColor: 'rgba(0, 0, 255, 0.2)',
-            fill: true,
-          },
-          {
-            data: dailyData.map((data) => data.deaths),
-            label: 'Deaths',
-            borderColor: 'red',
-            backgroundColor: 'rgba(255, 0, 0, 0.5)',
-            fill: true,
-          },
-        ],
+	const barChart = confirmed ? (
+		<Bar
+			data={{
+        labels:['Infected', 'Recovered', 'Deaths'],
+        datasets: [{
+          label: 'People',
+          backgroundColor:['rgba(0,0,255,0.5)','rgba(0,255,0,0.5)','rgba(255,0,0,0.5)'],
+          data:[confirmed.value,recovered.value,deaths.value]
+        }] 
       }}
-    />
-  ) : null;
+			options={{
+				legend: { display: false },
+				title: { display: true, text: `Current State In ${çountries}` }
+			}}
+		/>
+	) : null;
 
-  return <div className={styles.container}>
-  {lineChart}
+	return <div className={styles.container}>
+  {çountries ? barChart:lineChart}
   </div>;
 };
 
