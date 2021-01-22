@@ -20,9 +20,9 @@ const App = () => {
   
   return (
     <div className={styles.container}>
-      <Cards data={globData}/>
+      {/* <Cards data={globData}/> */}
       <CountryPicker />
-      <Chart />
+      {/* <Chart /> */}
     </div>
   );
 };

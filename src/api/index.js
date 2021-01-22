@@ -15,16 +15,25 @@ export default fetchData;
 
 export const fetchDailyData = async () => {
   try {
-    const {data} = await axios.get(`https://covid19.mathdro.id/api/daily`);
+    const { data } = await axios.get(`${url}/daily`);
 
-   const modifyData=data.map((dailyData)=>({
-     confirmed: dailyData.confirmed.total,
-     deaths: dailyData.deaths.total,
-     date: dailyData.reportDate,
+    const modifyData = data.map((dailyData) => ({
+      confirmed: dailyData.confirmed.total,
+      deaths: dailyData.deaths.total,
+      date: dailyData.reportDate,
+    }));
 
-   }))
+    console.log(modifyData);
+    return modifyData;
+  } catch (error) {}
+};
 
-   console.log(modifyData);
-  return modifyData
+export const fetchcountries = async () => {
+  try {
+    const {
+      data: { countries },
+    } = await axios.get(`${url}/countries`);
+
+    return countries.map((countries) => countries.name);
   } catch (error) {}
 };
