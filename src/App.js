@@ -4,34 +4,27 @@ import { Cards, Chart, CountryPicker } from "./Components";
 import styles from "./App.module.css";
 import fetchData from "./api";
 
+const App = () => {
+  const [globData, setGlobData] = useState({});
 
+  useEffect(() => {
+    async function getData() {
+      const fdata = await fetchData();
 
-class App extends React.Component {
-  state={
-    data:{}
-  }
+      return setGlobData(fdata)
+    }
 
-async componentDidMount() {
-const fetchDt=await fetchData()
+    getData();
+  },[]);
 
-this.setState({data:fetchDt})
-  
-}
-
-
-render(){
-
-  const {data}=this.state
-
+  console.log(globData);
   return (
     <div className={styles.container}>
-      <Cards data={data}/>
+      <Cards data={globData}/>
       <CountryPicker />
       <Chart />
     </div>
   );
-}
-
-}
+};
 
 export default App;
