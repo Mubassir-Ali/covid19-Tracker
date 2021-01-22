@@ -17,7 +17,7 @@ const App = () => {
     getData();
   },[]);
 
-  console.log(globData);
+  
   return (
     <div className={styles.container}>
       <Cards data={globData}/>
