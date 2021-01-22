@@ -11,17 +11,23 @@ const App = () => {
     async function getData() {
       const fdata = await fetchData();
 
-      return setGlobData(fdata)
+      return setGlobData(fdata);
     }
 
     getData();
-  },[]);
+  }, []);
 
-  
+const handleCountryChange = async (countries) => {
+    const data = await
+    //set state
+
+    console.log(countries);
+  };
+
   return (
     <div className={styles.container}>
-      {/* <Cards data={globData}/> */}
-      <CountryPicker />
+      <Cards data={globData} />
+      {/* <CountryPicker handleCountryChange={handleCountryChange} /> */}
       {/* <Chart /> */}
     </div>
   );
