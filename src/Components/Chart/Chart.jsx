@@ -56,8 +56,14 @@ const Chart = ({ data:{confirmed,recovered,deaths}, çountries }) => {
 		/>
 	) : null;
 
+
+
+
+
 	return <div className={styles.container}>
-  {çountries ? barChart:lineChart}
+  {çountries ? (çountries==="global"? lineChart:barChart):lineChart}
+ 
+
   </div>;
 };
 
