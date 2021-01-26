@@ -16,7 +16,7 @@ const App = () => {
 		}
 
 		getData();
-	}, []);
+	}, [globData]);
 
 	const handleCountryChange = async (countries) => {
 		const fdata = await fetchData(countries);
