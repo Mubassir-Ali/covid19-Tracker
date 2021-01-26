@@ -6,7 +6,7 @@ const fetchData = async (countries) => {
   let changeableURL =url;
   if(countries){
     if(countries==='global'){
-      let changeableURL =url;
+      changeableURL =url;
     }else{
       changeableURL=`${url}/countries/${countries}`
     }

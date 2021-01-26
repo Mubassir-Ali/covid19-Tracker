@@ -13,7 +13,7 @@ const Chart = ({ data:{confirmed,recovered,deaths}, çountries }) => {
 		};
 
 		fetcAPI();
-	}, []);
+	}, [dailyData]);
 
 	const lineChart = dailyData.length ? (
 		<Line
